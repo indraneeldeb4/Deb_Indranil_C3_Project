@@ -77,4 +77,14 @@ public class Restaurant {
     public String getLocation() {
         return location;
     }
+
+    public int totalOrderCost(List<Item> itemList) {
+        int total = 0;
+
+        for (Item item : itemList) {
+            total += item.getPrice();
+        }
+
+        return total;
+    }
 }

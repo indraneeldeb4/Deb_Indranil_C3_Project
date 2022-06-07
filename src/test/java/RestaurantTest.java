@@ -73,5 +73,27 @@ class RestaurantTest {
     }
 
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void testOrderCost() {
+        LocalTime openTime = LocalTime.of(8, 0, 0);
+        LocalTime closeTime = LocalTime.of(17, 0, 0);
+        restaurant = new Restaurant("ABC", "Florida", openTime, closeTime);
 
+        Item item1 = new Item("Chicken clear Soup", 5);
+        Item item2 = new Item("Crab soup", 5);
+        Item item3 = new Item("Mutton kola", 15);
+        Item item4 = new Item("Fish roast", 18);
+        Item item5 = new Item("Prawn golden fry", 20);
+        Item item6 = new Item("Biriyani", 15);
+        Item item7 = new Item("Butter roti", 15);
+        Item item8 = new Item("Mutton masala", 20);
+        Item item9 = new Item("Chocolate milk shake", 10);
+        Item item10 = new Item("Vanilla milk shake", 8);
+
+        restaurant.getMenu().add(item1);
+        restaurant.getMenu().add(item2);
+        restaurant.getMenu().add(item3);
+
+        assertEquals(25, restaurant.totalOrderCost(restaurant.getMenu()));
+    }
 }
