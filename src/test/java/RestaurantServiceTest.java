@@ -17,14 +17,41 @@ class RestaurantServiceTest {
     @Test
     public void searching_for_existing_restaurant_should_return_expected_restaurant_object() throws restaurantNotFoundException {
         //WRITE UNIT TEST CASE HERE
+        //arrange
+        LocalTime openTime = LocalTime.of(8, 0, 0);
+        LocalTime closeTime = LocalTime.of(17, 0, 0);
 
+        //act
+        service.addRestaurant("ABC", "NewYork", openTime, closeTime);
+        service.addRestaurant("IJK", "Washington", openTime, closeTime);
+        service.addRestaurant("PQR", "California", openTime, closeTime);
+        service.addRestaurant("XYZ", "Texas", openTime, closeTime);
+
+        //assert
+        assertEquals(service.addRestaurant("ABC", "NewYork", openTime, closeTime), service.findRestaurantByName("ABC"));
     }
 
     //You may watch the video by Muthukumaran on how to write exceptions in Course 3: Testing and Version control: Optional content
     @Test
     public void searching_for_non_existing_restaurant_should_throw_exception() throws restaurantNotFoundException {
         //WRITE UNIT TEST CASE HERE
+        LocalTime openTime = LocalTime.of(8, 0, 0);
+        LocalTime closeTime = LocalTime.of(17, 0, 0);
 
+        //act
+        Restaurant r1 = new Restaurant("ABC", "NewYork", openTime, closeTime);
+        Restaurant r2 = new Restaurant("IJK", "Washington", openTime, closeTime);
+        Restaurant r3 = new Restaurant("PQR", "Washington", openTime, closeTime);
+        Restaurant r4 = new Restaurant("XYZ", "Washington", openTime, closeTime);
+
+        service.addRestaurant(r1.getName(), r1.getLocation(), openTime, closeTime);
+        service.addRestaurant(r2.getName(), r2.getLocation(), openTime, closeTime);
+        service.addRestaurant(r3.getName(), r3.getLocation(), openTime, closeTime);
+        service.addRestaurant(r4.getName(), r4.getLocation(), openTime, closeTime);
+
+        //assert
+        restaurantNotFoundException exception = assertThrows(restaurantNotFoundException.class, () -> service.findRestaurantByName("BlueLagoon"));
+        assertEquals("No restaurant(s) found", exception.getMessage());
     }
     //<<<<<<<<<<<<<<<<<<<<SEARCHING>>>>>>>>>>>>>>>>>>>>>>>>>>
 
